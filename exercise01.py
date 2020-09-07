@@ -93,45 +93,34 @@ class LoopHandler:
 		self.__led = Led(7)
 		self.__led.hide()
 		self.__currentState = False
-		self.__startTime = 0
+		self.__startTime = 0.0
 		
 		self.__database = sqlite3.connect(os.path.join(self.BASE_DIR, "worker.db"))
 		# Create table
-		self.c = self.__database.cursor()
+		cursor = self.__database.cursor()
 		with open(os.path.join(self.BASE_DIR, "setup.sql"), 'r') as sql_file:
-			self.c.executescript(sql_file.read())
+			cursor.executescript(sql_file.read())
 
 		self.__database.commit()
 
-	def onSave(self, state : bool):
+	def __onSave(self, state : bool):
 		""" 
 			Speichert den Stand der Leuchtdiode in der Datenbank. 
 
 			Args:
 				state (bool): Der Status der Leuchtdiode. 
 		"""		
-		c = self.__database.cursor()
+		cursor = self.__database.cursor()
 		if state:
 			s = "AN"
 		else:
 			s = "Aus"
-		self.c.execute("""
+		cursor.execute("""
 			INSERT INTO led_zustand(zustand, time) VALUES('%s', datetime('now', 'localtime'));
 		""" % (s))
 		self.__database.commit()
 	
-	def Loop(self):
-		"""
-			Führt die Schleife solange aus bis, sie Unterbrochen wird. 
-		"""
-		try:
-			while True:
-				self.Update()
-				time.sleep(0.1)
-		except KeyboardInterrupt:
-			GPIO.cleanup()
-	
-	def Update(self):
+	def __Update(self):
 		"""
 			Überprüft durchgehend ob der Taster gedrückt wurde, wenn ja 
 			wird die aktuellen Zeit in einer Hilfsvariable gespeichert und auf ein Signal gewartet bis losgelassen wird.
@@ -157,10 +146,21 @@ class LoopHandler:
 				print("reclap record_time = ", record_time)
 				if record_time <= 0.5:
 					self.__led.toggle()
-					self.onSave(self.__led.get_state())
+					self.__onSave(self.__led.get_state())
 				self.__currentState = False
-				self.__startTime = 0
+				self.__startTime = 0.0
     
+	def Loop(self):
+		"""
+			Führt die Schleife solange aus bis, sie Unterbrochen wird. 
+		"""
+		try:
+			while True:
+				self.__Update()
+				time.sleep(0.1)
+		except KeyboardInterrupt:
+			GPIO.cleanup()
+	
 
 			
 
