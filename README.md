@@ -25,8 +25,8 @@ Planen und Realisieren Sie eine Schaltung bestehend aus einer LED (mit Vorwiders
 ![](images/ER-Modell.png)
 
 ### Quellcode
-```python
 ![](exercise01.py)
+```python
 ```
 [Quellcode](exercise01.py)
 [Datenbank](setup.sql)
