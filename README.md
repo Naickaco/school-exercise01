@@ -4,6 +4,7 @@ Eine Aufgabe um die Grundlagen
  * der Programmierung eines Tasters und einer Leuchtdioden
  * einer Datenbank
  * einer Implentierung von einer Datenbank(sqlite) in Python-Quellcode
+
 zu wiederholen. 
 
 **Schüler: CO**
@@ -24,9 +25,9 @@ Planen und Realisieren Sie eine Schaltung bestehend aus einer LED (mit Vorwiders
 ![](images/ER-Modell.png)
 
 ### Quellcode
-'''python
+```python
 ![](exercise01.py)
-'''
+```
 [Quellcode](exercise01.py)
 [Datenbank](setup.sql)
 
