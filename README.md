@@ -7,9 +7,8 @@ Eine Aufgabe um die Grundlagen
 
 zu wiederholen. 
 
-**Schüler: CO**
-
 **Klasse: ITA18a**
+**Schüler: CO**
 
 ## Aufgabe
 Planen und Realisieren Sie eine Schaltung bestehend aus einer LED (mit Vorwiderstand) und einem Taster (mit Pull-down-Widerstand) an GPIO-Pins des Raspberry Pi. Die Anwendung soll wie folgt funktionieren:
@@ -202,5 +201,3 @@ CREATE TABLE IF NOT EXISTS led_zustand
 );
 ```
 [setup.sql](setup.sql)
-
-[Technische Berufliche Schule 1](http://tbs1.de/jcms/index.php)
