@@ -25,12 +25,12 @@ class Led:
 	def __Update(self):
 		# Übermittelt den aktuellen Led Zustand zum Raspberry Pi.
 		GPIO.output(self.__pin, self.__state)
-	
+
 	def show(self):
 		# Schaltet den Zustand an und übergibt den Wert zur gleichen Zeit zum Raspberry Pi. 
 		self.__state = True
 		self.__Update()
-	
+
 	def hide(self):
 		# Schaltet den Zustand aus und übergibt den Wert zur gleichen Zeit zum Raspberry Pi. 
 		self.__state = False
@@ -61,7 +61,7 @@ class Taster:
 
 		self.__pin = pin
 		self.__Setup()
-	
+
 	def __Setup(self):
 		# Registiert den Taster als Eingang. 
 		GPIO.setup(self.__pin, GPIO.IN)
@@ -72,9 +72,6 @@ class Taster:
 	
 			Returns:
 				bool: returns if the taster is pressed.
-
-			
-		
 		"""
 		return not GPIO.input(self.__pin) # Bei meinen Button sind die Zustände verkehrt rum, darum das not.
 
@@ -119,7 +116,7 @@ class LoopHandler:
 			INSERT INTO led_zustand(zustand, time) VALUES('%s', datetime('now', 'localtime'));
 		""" % (s))
 		self.__database.commit()
-	
+
 	def __Update(self):
 		"""
 			Überprüft durchgehend ob der Taster gedrückt wurde, wenn ja 
@@ -149,7 +146,7 @@ class LoopHandler:
 					self.__onSave(self.__led.get_state())
 				self.__currentState = False
 				self.__startTime = 0.0
-    
+
 	def Loop(self):
 		"""
 			Führt die Schleife solange aus bis, sie Unterbrochen wird. 
@@ -160,10 +157,7 @@ class LoopHandler:
 				time.sleep(0.1)
 		except KeyboardInterrupt:
 			GPIO.cleanup()
-	
-
-			
-
+			self.__database.close()
 
 if __name__ == "__main__":
 	LoopHandler().Loop()
