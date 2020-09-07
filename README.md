@@ -8,6 +8,7 @@ Eine Aufgabe um die Grundlagen
 zu wiederholen. 
 
 **Klasse: ITA18a**
+
 **Schüler: CO**
 
 ## Aufgabe
